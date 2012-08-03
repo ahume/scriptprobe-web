@@ -1,8 +1,10 @@
 {
-  "name": "guperf",
+  "name": "scriptprobe",
   "version": "0.0.1",
   "dependencies": {
-    "express": "2.5.x",
+    "express": "3.0.0rc1",
+    "jade": "*",
+    "less-middleware": "*",
     "sandbox": "0.8.3",
     "zombie": "1.3.1"
   },
