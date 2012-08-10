@@ -2,7 +2,114 @@ extends layout
 
 block content
   h1 ScriptProbe
-  p Welcome to ScriptProbe
+  p ScriptProbe helps you quickly test third-party scripts for performance and security before you add them to your website
+  p Enter a URL below to get started
 
-  each val, key in details
-  	li= #{key}: #{val}
+  form.testUrl(method="post", action="/")
+    p
+      input(type="text", placeholder="http://", name="url", value=url)
+    p
+      input(type="submit", value="Probe URL")
+
+  if results
+
+    div.results
+      ul
+        //- If gzip
+        if results.gzip
+          li.good
+            div.summary
+              p Compressed
+            div.detail
+              p Content-Encoding: gzip
+        else
+          li.bad
+            div.summary
+              p Uncompressed
+            div.detail
+              p The script is uncompressed (#{results.totalBytes} Kb)
+
+
+
+        //- If caching
+        if results.httpRequests[0].cacheControl || results.httpRequests[0].expires
+          li.good
+            div.summary
+              p Caching
+            div.detail
+              if results.httpRequests[0].cacheControl 
+                p Cache-Control: #{results.httpRequests[0].cacheControl}
+              if results.httpRequests[0].expires
+                p Expires: #{results.httpRequests[0].expires}
+        else
+          li.bad
+            div.summary
+              p No caching
+            div.detail
+              p The response does not contain any cache headers
+
+
+
+        //- Check for CDN results
+        if results.cdn
+          li.good
+            div.summary
+              p Served from CDN
+            div.detail
+              p Served from a recognised CDN
+        else
+          li.bad
+            div.summary
+              p No CDN
+            div.detail
+              p Not served from a recognised CDN.
+
+
+        //- Check for document.write
+        if !results.documentDotWrite
+          li.good
+            div.summary
+              p document.write()
+            div.detail
+              p This script does not call document.write() so can be loaded asynchronously
+        else
+          li.bad
+            div.summary
+              p document.write()
+            div.detail
+              p This script calls document.write() so cannot be loaded asynchronously
+        
+
+        //- Check for global vars
+        if !results.globalVars.length
+          li.good
+            div.summary
+              p No Globals
+            div.detail
+              p This script does not add any variables to the global namespace (window)
+        else
+          li.bad
+            div.summary
+              p Added globals
+            div.detail
+              p This script adds #{results.globalVars.length} variables to the global namespace: 
+                br
+                code #{results.globalVars}
+
+
+        //- Check for global vars
+        if results.additionalScripts < 1
+          li.good
+            div.summary
+              p No additional scripts
+            div.detail
+              p This script does not make any further JavaScript calls.
+        else
+          li.bad
+            div.summary
+              p Additional scripts
+            div.detail
+              p This script appears to add #{results.additionalScrpts} additional remote scripts to the page.
+
+
+

@@ -1,7 +1,91 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+  font-family: "FS Joey Web Medium", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  color: #333;
 }
-a {
+h1 {
+  font-size: 72px;
+  font-family: "FS Joey Web Medium", Helvetica, Arial, sans-serif;
+  color: #9E206D;
+  margin: 20px 0 0 0;
+}
+h1 + p {
+  margin-top: 5px;
+}
+a:link,
+a:visited,
+a:hover,
+a:focus,
+a:active {
   color: #00B7FF;
+}
+.wrap {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+input[type=text] {
+  border: 1px solid #CCC;
+  border-radius: 10px;
+  font-size: 16px;
+  padding: 10px 5px;
+  width: 60%;
+}
+input[type=submit] {
+  background-color: #9E206D;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 1px 1px 0 #999;
+  font-family: "FS Joey Web Light", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  color: #FFF;
+  padding: 5px 20px;
+  font-weight: 200;
+  cursor: pointer;
+}
+.results {
+  margin-top: 40px;
+  text-align: left;
+}
+.results p {
+  margin: 5px;
+}
+.results li {
+  list-style: none;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.good {
+  background-color: #92DB92;
+}
+.good .detail {
+  background-color: #E1F5E1;
+}
+.bad {
+  background-color: #FF6E6E;
+}
+.bad .detail {
+  background-color: #FFD7D7;
+}
+.summary,
+.detail {
+  padding: 0 10px 100px 10px;
+  margin-bottom: -100px;
+  box-sizing: border-box;
+}
+.summary {
+  float: left;
+  width: 25%;
+  text-align: center;
+}
+.detail {
+  float: right;
+  width: 75%;
+  font-size: 16px;
+}
+.detail code {
+  font-size: 14px;
 }
